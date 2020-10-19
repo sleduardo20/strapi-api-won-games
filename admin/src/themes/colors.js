@@ -47,7 +47,7 @@ const colors = {
     blueLight: '#10132d',
     blue: '#0a0d27',
     blueDark: '#06081b',
-    ping: '#f231a5',
+    pink: '#f231a5',
     orange: '#f56161',
   }
 

@@ -8,31 +8,31 @@ const A = styled.a`
   min-height: 3.6rem;
   border-left: 0.3rem solid transparent;
   cursor: pointer;
-  color: ${props => props.theme.main.colors.leftMenu['link-color']};
+  color: ${({theme}) => theme.main.colors.leftMenu['link-color']};
   text-decoration: none;
   display: block;
   -webkit-font-smoothing: antialiased;
 
   &:hover {
-    color: ${props => props.theme.main.colors.white};
-    background: ${props => props.theme.main.colors.leftMenu['link-hover']};
+    color: ${({theme}) => theme.main.colors.white};
+    background: ${({theme}) => theme.main.colors.won.blue};
 
-    border-left: 0.3rem solid ${props => props.theme.main.colors.strapi.blue};
+    border-left: 0.3rem solid ${({theme}) => theme.main.colors.won.orange};
     text-decoration: none;
   }
 
   &:focus {
-    color: ${props => props.theme.main.colors.white};
+    color: ${({theme}) => theme.main.colors.white};
     text-decoration: none;
   }
 
   &:visited {
-    color: ${props => props.theme.main.colors.leftMenu['link-color']};
+    color: ${({theme}) => theme.main.colors.leftMenu['link-color']};
   }
 
   &.linkActive {
     color: white !important;
-    border-left: 0.3rem solid ${props => props.theme.main.colors.strapi.blue};
+    border-left: 0.3rem solid ${({theme}) => theme.main.colors.strapi.blue};
   }
 `;
 

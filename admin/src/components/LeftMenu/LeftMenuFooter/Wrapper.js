@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+
 
 const Wrapper = styled.div`
   position: absolute;
   width: 100%;
-  background: ${props => props.theme.main.colors.strapi['blue-darker']};
+  background: ${({theme}) => theme.main.colors.won.blueDark};
   bottom: 0;
   .poweredBy {
     width: 100%;
@@ -18,26 +18,15 @@ const Wrapper = styled.div`
     font-weight: 400;
     letter-spacing: 0.05rem;
     vertical-align: middle;
-    color: ${({ theme }) => theme.main.colors.strapi['gray-light']};
+    color: ${({ theme }) => theme.main.colors.won.pink};
+
+    a{
+      color: ${({ theme }) => theme.main.colors.won.orange};
+      margin-left: 8px;
+    }
+
+
   }
 `;
-
-Wrapper.defaultProps = {
-  theme: {
-    main: {
-      colors: {
-        strapi: {},
-      },
-      sizes: {
-        header: {},
-        leftMenu: {},
-      },
-    },
-  },
-};
-
-Wrapper.propTypes = {
-  theme: PropTypes.object,
-};
 
 export default Wrapper;
