@@ -5,4 +5,9 @@
  * to customize this controller
  */
 
-module.exports = {};
+module.exports = {
+  populate:( cxt ) => {
+    console.log("initial")
+    cxt.send({ok: true})
+  }
+};
