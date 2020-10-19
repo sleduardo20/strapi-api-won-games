@@ -4,7 +4,7 @@
   "description": "A list of our repositories in React Avançado course.",
   "strapi": {
     "name": "Repositories",
-    "icon": "code.",
+    "icon": "code",
     "description": "A list of our repositories in React Avançado course."
   },
   "dependencies": {},
