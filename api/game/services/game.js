@@ -13,7 +13,7 @@ const axios = require("axios");
 
    const {data: {products} } = await axios.get(gogApiUrl)
 
-   console.log(products)
+   console.log(products[0])
   }
 };
 
