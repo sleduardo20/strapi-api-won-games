@@ -161,7 +161,7 @@ module.exports = {
 
      await createManyToManyData([products[1],products[35],products[40]]);
 
-     //await createGames(products);
+     await createGames(products);
     } catch (error) {
       console.log('Populate:', Exception(error));
     }
