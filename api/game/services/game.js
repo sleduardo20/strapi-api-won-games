@@ -7,6 +7,10 @@
 const axios = require("axios");
 const slugify = require("slugify");
 
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
+
 async function getGameInfo(slug){
   const jsdom = require("jsdom");
 
@@ -23,12 +27,12 @@ async function getGameInfo(slug){
     short_description: description.textContent.trim().slice(0,160),
     description: description.innerHTML,
   }
-}
+};
 
 async function getByName(name, entityName) {
   const item = await strapi.services[entityName].find({name})
   return item.length ? item[0] : null;
-}
+};
 
 async function create(name, entityName){
   const item = await getByName(name, entityName);
@@ -39,7 +43,7 @@ async function create(name, entityName){
       slug: slugify(name, {lower: true})
     })
   }
-}
+};
 
 async function createManyToManyData(products){
   const developers = {};
@@ -73,6 +77,32 @@ async function createManyToManyData(products){
 
 };
 
+async function setImage({ image, game, field ='cover'}) {
+  const url = `https:${image}_bg_crop_1680x655.jpg`;
+  const { data } = await axios.get(url, {responseType: 'arraybuffer'});
+  const buffer = Buffer.from(data, "base64");
+
+  const FormData = require('form-data');
+  const formData = new FormData();
+
+  formData.append("refId", game.id);
+  formData.append("ref", 'game');
+  formData.append("field", field);
+  formData.append("files", buffer, { filename: `${game.slug}.jpg`});
+
+  console.log(`Uploading ${field} image: ${game.slug}.jpg`);
+
+  await axios({
+    method:'POST',
+    url: `http://${strapi.config.host}:${strapi.config.port}/upload`,
+    data: formData,
+    headers: {
+      'Content-Type':`multipart/form-data; boundary=${formData._boundary}`,
+    },
+  });
+
+};
+
 async function createGames(products) {
   await Promise.all(
     products.map( async (product) =>{
@@ -93,11 +123,23 @@ async function createGames(products) {
           ...(await getGameInfo(product.slug)),
         });
 
+        await setImage({image: product.image, game})
+        await Promise.all(
+          product.gallery.slice(0,6).map( url => setImage({
+              image: url,
+              game,
+              field: 'gallery' }))
+        );
+
+        await timeout(2000);
+
         return game;
       };
     })
   );
 };
+
+
 
  module.exports = {
   populate: async (params) => {
@@ -106,9 +148,7 @@ async function createGames(products) {
     const {data: {products} } = await axios.get(gogApiUrl);
 
     await createManyToManyData([products[2], products[3]]);
-    await createGames([products[4], products[5]]);
-
-    // console.log(await getByName('4A Games', 'game'));
+    await createGames([products[0], products[1]]);
   }
 };
 
