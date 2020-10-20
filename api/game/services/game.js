@@ -157,9 +157,11 @@ module.exports = {
 
       const {data: {products} } = await axios.get(gogApiUrl);
 
-      await createManyToManyData(products);
 
-      await createGames(products);
+
+     await createManyToManyData([products[1],products[35],products[40]]);
+
+     //await createGames(products);
     } catch (error) {
       console.log('Populate:', Exception(error));
     }
