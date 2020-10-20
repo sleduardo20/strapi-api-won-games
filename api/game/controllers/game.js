@@ -6,17 +6,17 @@
  */
 
 module.exports = {
-  populate: async ( ctx ) => {
+  populate: async (ctx) => {
     console.log("Starting to populate...");
 
     const options = {
-      sort: 'popularity',
-      page: '1',
+      sort: "popularity",
+      page: "1",
       ...ctx.query,
-    }
+    };
 
     await strapi.services.game.populate(options);
 
-    cxt.send("Finished Populate!");
+    ctx.send("Finished Populate!");
   }
 };
