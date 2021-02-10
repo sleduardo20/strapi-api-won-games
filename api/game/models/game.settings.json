@@ -42,11 +42,10 @@
       "type": "enumeration",
       "enum": [
         "FREE",
-        "E",
-        "E10Plus",
-        "T",
-        "M",
-        "AO"
+        "BR10",
+        "BR14",
+        "BR16",
+        "BR18"
       ]
     },
     "cover": {

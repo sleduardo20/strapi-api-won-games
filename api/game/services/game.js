@@ -159,7 +159,7 @@ module.exports = {
 
 
 
-     await createManyToManyData([products[1],products[35],products[40]]);
+     await createManyToManyData([products[1],products[11],products[1]]);
 
      await createGames(products);
     } catch (error) {
