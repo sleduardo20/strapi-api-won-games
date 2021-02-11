@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "games",
   "info": {
-    "name": "Game",
+    "name": "game",
     "description": ""
   },
   "options": {
@@ -71,11 +71,6 @@
       "via": "games",
       "dominant": true
     },
-    "developers": {
-      "collection": "developer",
-      "via": "games",
-      "dominant": true
-    },
     "platforms": {
       "collection": "platform",
       "via": "games",
@@ -84,6 +79,11 @@
     "publisher": {
       "model": "publisher",
       "via": "games"
+    },
+    "developers": {
+      "via": "game",
+      "collection": "developer",
+      "dominant": true
     }
   }
 }

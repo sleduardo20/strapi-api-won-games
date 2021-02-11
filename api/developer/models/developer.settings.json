@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "developers",
   "info": {
-    "name": "Developer",
+    "name": "developer",
     "description": ""
   },
   "options": {
@@ -21,9 +21,9 @@
       "targetField": "name",
       "required": true
     },
-    "games": {
-      "via": "developers",
-      "collection": "game"
+    "game": {
+      "collection": "game",
+      "via": "developers"
     }
   }
 }
