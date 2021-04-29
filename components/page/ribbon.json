@@ -14,10 +14,10 @@
     "color": {
       "type": "enumeration",
       "enum": [
-        "primay",
+        "primary",
         "secondary"
       ],
-      "default": "primay"
+      "default": "primary"
     },
     "sizes": {
       "type": "enumeration",
