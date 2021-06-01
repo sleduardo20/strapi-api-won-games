@@ -75,7 +75,7 @@ module.exports = {
       try {
         paymentInfo = await stripe.paymentMethods.retrieve(paymentMethod);
       } catch (error) {
-        ctx.reponse.status = 402;
+        ctx.response.status = 402;
         return { error : error.message }
       }
     }

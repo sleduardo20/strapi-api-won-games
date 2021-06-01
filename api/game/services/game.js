@@ -39,37 +39,37 @@ async function getByName(name, entityName) {
   return item.length ? item[0] : null;
 };
 
-async function create(name, entityName){
+async function create(name, entityName) {
   const item = await getByName(name, entityName);
 
-  if(!item){
+  if (!item) {
     return await strapi.services[entityName].create({
       name,
-      slug: slugify(name, {lower: true})
-    })
+      slug: slugify(name, { strict: true, lower: true }),
+    });
   }
-};
+}
 
-async function createManyToManyData(products){
+async function createManyToManyData(products) {
   const developers = new Set();
   const publishers = new Set();
   const categories = new Set();
   const platforms = new Set();
 
-    products.forEach((product) => {
-      const { developer, publisher, genres, supportedOperatingSystems } = product;
+  products.forEach((product) => {
+    const { developer, publisher, genres, supportedOperatingSystems } = product;
 
-      genres?.forEach((item) => {
-        categories.add(item);
-      });
-
-      supportedOperatingSystems?.forEach((item) => {
-        platforms.add(item);
-      });
-
-      developers.add(developer);
-      publishers.add(publisher);
+    genres?.forEach((item) => {
+      categories.add(item);
     });
+
+    supportedOperatingSystems?.forEach((item) => {
+      platforms.add(item);
+    });
+
+    developers.add(developer);
+    publishers.add(publisher);
+  });
 
   const createCall = (set, entityName) => Array.from(set).map((name) => create(name, entityName));
 
@@ -79,8 +79,7 @@ async function createManyToManyData(products){
     ...createCall(categories, "category"),
     ...createCall(platforms, "platform"),
   ]);
-
-};
+}
 
 async function setImage({ image, game, field ='cover'}) {
 
@@ -152,19 +151,19 @@ async function createGames(products) {
 module.exports = {
   populate: async (params) => {
     try {
-      const gogApiUrl = `https://www.gog.com/games/ajax/filtered?mediaType=game&${
-        qs.stringify(params)}`;
+      const gogApiUrl = `https://www.gog.com/games/ajax/filtered?mediaType=game&${qs.stringify(
+        params
+      )}`;
 
-      const {data: {products} } = await axios.get(gogApiUrl);
+      const {
+        data: { products },
+      } = await axios.get(gogApiUrl);
 
-
-
-     await createManyToManyData(products);
-
-     await createGames(products);
-    } catch (error) {
-      console.log('Populate:', Exception(error));
+      await createManyToManyData(products);
+      await createGames(products);
+    } catch (e) {
+      console.log("populate", Exception(e));
     }
-  }
+  },
 };
 
